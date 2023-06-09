@@ -4,6 +4,6 @@ import OderController from '../controllers/order.controller';
 const orderRouter = Router();
 
 orderRouter.get('/', OderController.findAll);
-// productRouter.post('/', ProductController.create);
+// orderRouter.post('/', ProductController.create);
 
 export default orderRouter;

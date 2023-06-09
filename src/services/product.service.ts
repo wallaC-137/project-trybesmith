@@ -2,7 +2,7 @@
 import { ServiceResponse, Product } from '../types/Product';
 import ProductModel, {
   ProductInputtableTypes, ProductSequelizeModel } from '../database/models/product.model';
-
+import ProductSchema from '../schemas/products.schema';
 // const validate = ({ name, price, orderId }: ProductInputtableTypes): string | null => {
 //   if (!name || !price || !orderId) {
 //     return 'Missing required fields!';
@@ -22,6 +22,14 @@ const create = async (
   //   responseService = { status: 'INVALID_DATA', data: { message: error } };
   //   return responseService;
   // }
+  
+  const { error } = ProductSchema.validate(product);
+  if (error) {
+    return { 
+      status: 'UNPROCESSABLE_ENTITY',
+      data: { message: error.message }, 
+    };
+  }
 
   const newProduct = await ProductModel.create(product);
   const responseService: ServiceResponse<Product> = {

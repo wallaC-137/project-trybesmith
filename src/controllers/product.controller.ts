@@ -4,11 +4,15 @@ import product from '../services/product.service';
 
 const create = async (req: Request, res: Response) => {
   const { name, price, orderId } = req.body;
-  const { /* status, */ data } = await product.create({ name, price, orderId });
 
-  // if (status !== 'SUCCESSFUL') {
-  //   return res.status(mapStatusHTTP(status)).json(data);
-  // }
+  // if (!name) { return res.status(400).json({ message: '"name" is required' }); }
+  // if (!price) { return res.status(400).json({ message: '"price" is required' }); }
+
+  const { status, data } = await product.create({ name, price, orderId });
+
+  if (status !== 'SUCCESSFUL') {
+    return res.status(mapStatusHTTP(status)).json(data);
+  }
 
   return res.status(201).json(data);
 };
