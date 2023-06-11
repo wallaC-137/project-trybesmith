@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import OderController from '../controllers/order.controller';
+import OrderController from '../controllers/order.controller';
+import middlewaresValidations from '../middlewares/token.validations';
 
 const orderRouter = Router();
 
-orderRouter.get('/', OderController.findAll);
-// orderRouter.post('/', ProductController.create);
+orderRouter.get('/', OrderController.findAll);
+orderRouter.post('/', middlewaresValidations, OrderController.create);
 
 export default orderRouter;

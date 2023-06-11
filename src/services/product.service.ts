@@ -1,28 +1,13 @@
-// import { Model } from 'sequelize';
 import { ServiceResponse, Product } from '../types/Product';
-import ProductModel, {
-  ProductInputtableTypes, ProductSequelizeModel } from '../database/models/product.model';
 import ProductSchema from '../schemas/products.schema';
-// const validate = ({ name, price, orderId }: ProductInputtableTypes): string | null => {
-//   if (!name || !price || !orderId) {
-//     return 'Missing required fields!';
-//   }
-
-//   return null;
-// };
+import ProductModel, {
+  ProductInputtableTypes,
+  ProductSequelizeModel, 
+} from '../database/models/product.model';
 
 const create = async (
   product: ProductInputtableTypes,
 ) :Promise<ServiceResponse<Product>> => {
-  // try {
-  // let responseService: ServiceResponse<Product>;
-
-  // const error = validate(product);
-  // if (error) {
-  //   responseService = { status: 'INVALID_DATA', data: { message: error } };
-  //   return responseService;
-  // }
-  
   const { error } = ProductSchema.validate(product);
   if (error) {
     return { 
@@ -36,9 +21,6 @@ const create = async (
     status: 'SUCCESSFUL', data: newProduct.dataValues,
   };
   return responseService;
-  // } catch (error) {
-  // return { status: 'ERROR', data: { message: 'server error' } };
-  // }
 };
 
 const findAll = async (): Promise<ServiceResponse<ProductSequelizeModel[]>> => {

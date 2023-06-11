@@ -12,9 +12,13 @@ const sign = (payload: TokenPayload): string => {
   return token;
 };
 
-const verify = (token: string): TokenPayload => {
-  const data = jwt.verify(token, secret) as TokenPayload; 
-  return data; 
+const verify = (token: string): TokenPayload | undefined => {
+  try {
+    const data = jwt.verify(token, secret) as TokenPayload; 
+    return data;
+  } catch (err) {
+    console.log('token invalido');
+  }
 };
 
 export default {
